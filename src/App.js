@@ -1,24 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [name, setName] = useState({
+    first: "",
+    last: ""
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleInput = (event) => {
+    setName((prev) => ({ ...prev, [event.target.id]: event.target.value }))
+  }
+
+  const handleSubmission = (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ padding: "15px" }}>
+        <h1 >Full Name Display</h1>
+        <form onSubmit={(event) => handleSubmission(event)}>
+          <label htmlFor="first">First Name:</label>
+          <input required id='first' value={name.first} onChange={(event) => handleInput(event)}></input>
+          <br />
+          <label htmlFor="last">Last Name</label>
+          <input required id='last' value={name.last} onChange={(event) => handleInput(event)}></input>
+          <br />
+          <button type='submit'>Submit</button>
+        </form>
+        {isSubmitted && (
+          <p>Full Name: {name.first} {name.last}</p>
+        )}
+      </div>
+    </>
   );
 }
 
