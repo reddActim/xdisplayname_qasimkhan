@@ -13,7 +13,11 @@ function App() {
 
   const handleSubmission = (event) => {
     event.preventDefault();
-    setIsSubmitted(true);
+    if (name.first && name.last) {
+      setIsSubmitted(true);
+    } else {
+      setIsSubmitted(false);
+    }
   }
 
   return (
@@ -22,10 +26,10 @@ function App() {
         <h1 >Full Name Display</h1>
         <form onSubmit={(event) => handleSubmission(event)}>
           <label htmlFor="first">First Name:</label>
-          <input required id='first' value={name.first} onChange={(event) => handleInput(event)}></input>
+          <input type="text" required id='first' value={name.first} onChange={(event) => handleInput(event)}></input>
           <br />
           <label htmlFor="last">Last Name</label>
-          <input required id='last' value={name.last} onChange={(event) => handleInput(event)}></input>
+          <input  type="text" required id='last' value={name.last} onChange={(event) => handleInput(event)}></input>
           <br />
           <button type='submit'>Submit</button>
         </form>
